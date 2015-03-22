@@ -39,11 +39,11 @@ func (s *SessionSuite) TestTamperNotOK(c *C) {
 
 	tc := []SecureID{
 		p.SID[:len(p.SID)-1],
-		"a" + p.SID,
+		"_" + p.SID,
 		"",
 		"blabla",
 		p.SID + "a",
-		p.SID[0:len(p.SID)-1] + "a",
+		p.SID[0:len(p.SID)-1] + "_",
 	}
 
 	for _, t := range tc {

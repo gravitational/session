@@ -2,6 +2,7 @@ package session
 
 import (
 	"encoding/base64"
+	"encoding/hex"
 	"fmt"
 	"strings"
 
@@ -27,14 +28,15 @@ func NewID(s *secret.Service) (*IDPair, error) {
 	if err != nil {
 		return nil, err
 	}
-	sealed, err := s.Seal(bytes)
+	pid := []byte(hex.EncodeToString(bytes))
+	sealed, err := s.Seal(pid)
 	if err != nil {
 		return nil, err
 	}
 	id := fmt.Sprintf("%v.%v",
 		base64.URLEncoding.EncodeToString(sealed.Ciphertext),
 		base64.URLEncoding.EncodeToString(sealed.Nonce))
-	return &IDPair{SID: SecureID(id), PID: PlainID(bytes)}, nil
+	return &IDPair{SID: SecureID(id), PID: PlainID(pid)}, nil
 }
 
 func DecodeSID(sid SecureID, s *secret.Service) (PlainID, error) {
