@@ -8,8 +8,8 @@ import (
 )
 
 type SessionCookie struct {
-	User string `json: "user"`
-	SID  string `json: "sid"`
+	User string `json:"user"`
+	SID  string `json:"sid"`
 }
 
 func EncodeCookie(user, sid string) (string, error) {
