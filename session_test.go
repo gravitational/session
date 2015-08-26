@@ -11,7 +11,7 @@ import (
 func TestSession(t *testing.T) { TestingT(t) }
 
 type SessionSuite struct {
-	srv *secret.Service
+	srv secret.SecretService
 }
 
 var _ = Suite(&SessionSuite{})
